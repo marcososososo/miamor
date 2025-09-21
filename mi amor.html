@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Flores Amarillas 🌼</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff8e1;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      overflow: hidden;
+      transition: background 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .carta {
+      background: #fff3cd;
+      border: 5px solid #fbc02d;
+      padding: 50px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.4s ease, opacity 1s ease;
+      font-size: 28px;
+      max-width: 500px;
+    }
+
+    .carta:hover {
+      transform: scale(1.05);
+    }
+
+    .mensaje {
+      display: none;
+      font-size: 32px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .flor {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      animation: caer 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(-120px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="carta" id="carta">
+    💌 Click para abrir la carta amooooooooor
+    <div class="mensaje" id="mensaje">🌼 ♡♡Para la mejor novia del mundo y del universo enteroooo♡♡ 🌼</div>
+  </div>
+
+  <audio id="musica" src="cancion.mp3"></audio>
+
+  <script>
+    const carta = document.getElementById("carta");
+    const mensaje = document.getElementById("mensaje");
+    const musica = document.getElementById("musica");
+
+    carta.addEventListener("click", () => {
+      mensaje.style.display = "block";
+      carta.firstChild.remove(); // borra el "Haz clic"
+      document.body.style.backgroundImage = "url('fondo.jpg')";
+      musica.play(); // 🔊 empieza la canción
+
+      // Hacer caer flores
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => crearFlor(), i * 400);
+      }
+    });
+
+    function crearFlor() {
+      const flor = document.createElement("img");
+      flor.classList.add("flor");
+
+      // Alterna entre flor1 y flor2
+      flor.src = Math.random() > 0.5 ? "flor1.png" : "flor2.png";
+
+      flor.style.left = Math.random() * window.innerWidth + "px";
+      flor.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(flor);
+
+      setTimeout(() => {
+        flor.remove();
+      }, 7000);
+    }
+  </script>
+</body>
+</html>
+
